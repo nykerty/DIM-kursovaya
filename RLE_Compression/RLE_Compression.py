@@ -32,6 +32,7 @@ def rle_encode(image_array):
             current_pixel = pixels[i]
             count = 1
     encoded_data.append((current_pixel, count))
+    print("[*]", get_size_format(np.array(encoded_data).size))
     return encoded_data
 
 
@@ -62,14 +63,8 @@ def compress_image_rle(image_path):
     encoded_channels = []
     for channel in range(original_shape[2]): # проход по каналам rgb
       encoded_channels.append(rle_encode(image_array[:,:,channel]))
-
+      
     return encoded_channels, original_shape, "color"
-  elif len(original_shape) == 2:
-    print("="*50)
-    print("[!] Encoding grayscale image")
-    encoded_data = rle_encode(image_array)
-
-    return encoded_data, original_shape, "grayscale"
   else:
     print("[!] Unknown image format.")
     return None, None, None
